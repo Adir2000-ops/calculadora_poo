@@ -1,18 +1,13 @@
 <?php
 
 
-class VisorCalculadora {
+class Result {
 
 	private $value;
 
-	/**
-	 * Constructor.
-	 * @param $value
-	 */
 	public function __construct($value = 0) {
 		$this->value = $value;
 	}
-
 
 	public function __toString() {
         $html = "<div class='row'> \n";

@@ -1,14 +1,9 @@
 <?php
 
-
-class MontaCalculadora {
+class Calculadora {
 
     private $value;
 
-	/**
-	 * Constructor.
-	 * @param $value
-	 */
 	public function __construct() {
         if(!isset($_SESSION['NUM'])){
             $_SESSION['NUM'] = 0;
@@ -24,19 +19,19 @@ class MontaCalculadora {
         }
         if(isset($_POST['op'])){
             switch ($_POST['op']){
-                case 'CE':
+                case 'C':
                     $_SESSION['RESULTADO'] = 0;
                     $_SESSION['OPERADOR'] = '';
                     $_SESSION['NUM'] = 0;
                     break;
                 case '=':
-                    $this->realizaCalculo();
+                    $this->Calcular();
                     $_SESSION['NUM'] = $_SESSION['RESULTADO'];
                     $_SESSION['RESULTADO'] = 0;
                     break;
                 case '+':
                     if($_SESSION['OPERADOR'] != ''){
-                        $this->realizaCalculo();
+                        $this->Calcular();
                     }
                     $_SESSION['OPERADOR'] = '+';
                     $_SESSION['RESULTADO'] = $_SESSION['NUM'];
@@ -44,7 +39,7 @@ class MontaCalculadora {
                     break;
                 case '-':
                     if($_SESSION['OPERADOR'] != ''){
-                        $this->realizaCalculo();
+                        $this->Calcular();
                     }
                     $_SESSION['OPERADOR'] = '-';
                     $_SESSION['RESULTADO'] = $_SESSION['NUM'];
@@ -52,7 +47,7 @@ class MontaCalculadora {
                     break;
                 case 'X':
                     if($_SESSION['OPERADOR'] != ''){
-                        $this->realizaCalculo();
+                        $this->Calcular();
                     }
                     $_SESSION['OPERADOR'] = 'X';
                     $_SESSION['RESULTADO'] = $_SESSION['NUM'];
@@ -60,7 +55,7 @@ class MontaCalculadora {
                     break;
                 case '%':
                     if($_SESSION['OPERADOR'] != ''){
-                        $this->realizaCalculo();
+                        $this->Calcular();
                     }
                     $_SESSION['OPERADOR'] = '%';
                     $_SESSION['RESULTADO'] = $_SESSION['NUM'];
@@ -71,7 +66,7 @@ class MontaCalculadora {
         $this->value = ($_SESSION['NUM'] <> 0 ? $_SESSION['NUM'] : $_SESSION['RESULTADO']);
 	}
 
-    private function realizaCalculo(){
+    private function Calcular(){
         switch ($_SESSION['OPERADOR']){
             case '+':
                 $_SESSION['RESULTADO'] = $_SESSION['RESULTADO'] + $_SESSION['NUM'];
@@ -92,30 +87,30 @@ class MontaCalculadora {
 
 	public function __toString() {
         $html = "<form method='post' class='container calculadora' action='index.php'> \n";
-        $html .= new VisorCalculadora($this->value);
+        $html .= new Result($this->value);
         $html .= "<div class='row'> \n";
-        $html .= new BotaoCalculadora("num", "7");
-        $html .= new BotaoCalculadora("num", "8");
-        $html .= new BotaoCalculadora("num", "9");
-        $html .= new BotaoCalculadora("op", "%");
+        $html .= new Button("num", "1");
+        $html .= new Button("num", "2");
+        $html .= new Button("num", "3");
+        $html .= new Button("op", "+");
         $html .= "</div> \n";
         $html .= "<div class='row'> \n";
-        $html .= new BotaoCalculadora("num", "4");
-        $html .= new BotaoCalculadora("num", "5");
-        $html .= new BotaoCalculadora("num", "6");
-        $html .= new BotaoCalculadora("op", "X");
+        $html .= new Button("num", "4");
+        $html .= new Button("num", "5");
+        $html .= new Button("num", "6");
+        $html .= new Button("op", "-");
         $html .= "</div> \n";
         $html .= "<div class='row'> \n";
-        $html .= new BotaoCalculadora("num", "1");
-        $html .= new BotaoCalculadora("num", "2");
-        $html .= new BotaoCalculadora("num", "3");
-        $html .= new BotaoCalculadora("op", "+");
+        $html .= new Button("num", "7");
+        $html .= new Button("num", "8");
+        $html .= new Button("num", "9");
+        $html .= new Button("op", "x");
         $html .= "</div> \n";
         $html .= "<div class='row'> \n";
-        $html .= new BotaoCalculadora("num", "0");
-        $html .= new BotaoCalculadora("op", "c");
-        $html .= new BotaoCalculadora("op", "=");
-        $html .= new BotaoCalculadora("op", "-");
+        $html .= new Button("num", "0");
+        $html .= new Button("op", "c");
+        $html .= new Button("op", "%");
+        $html .= new Button("op", "=");
         $html .= "</div> \n";
         $html .= "</form> \n";
         
